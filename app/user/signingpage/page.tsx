@@ -4,7 +4,7 @@ import * as z from "zod";
 import axios from "axios";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 import { Button } from "@/components/ui/button"
@@ -18,6 +18,7 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input";
+import toast from "react-hot-toast";
 
 const formSchema = z.object({
     title: z.string().min(2, {
@@ -26,6 +27,7 @@ const formSchema = z.object({
 })
 
 const SigningPage = () => {
+    const router = useRouter();
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -35,8 +37,18 @@ const SigningPage = () => {
 
     const { isSubmitting, isValid } = form.formState;
 
-    const onSubmit = (values: z.infer<typeof formSchema>) => {
-        console.log(values);
+    
+    const onSubmit = async (values: z.infer<typeof formSchema>) => {
+        try {
+            const response = await axios.post("/api/autorize", values);
+            console.log(response.data)
+            /*router.push(`/user/checksign/${response.data.documentId}`)*/
+            router.push(`${response.data}`)
+
+        } catch  {
+            toast.error("Трапилась помилка");
+        }
+        
     };
 
     return ( 
