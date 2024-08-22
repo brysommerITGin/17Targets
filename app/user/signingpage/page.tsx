@@ -24,6 +24,9 @@ const formSchema = z.object({
     title: z.string().min(2, {
       message: "Username must be at least 2 characters.",
     }),
+    email: z.string().email({
+        message: "Please enter a valid email address.",
+    }),
 })
 
 const SigningPage = () => {
@@ -31,7 +34,8 @@ const SigningPage = () => {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            title: ""
+            title: "",
+            email: ""
         },
     });
 
@@ -43,7 +47,7 @@ const SigningPage = () => {
             const response = await axios.post("/api/autorize", values);
             console.log(response.data)
             /*router.push(`/user/checksign/${response.data.documentId}`)*/
-            router.push(`${response.data}`)
+            router.push(`/user/signingpage/${response.data.fileId}`)
 
         } catch  {
             toast.error("Трапилась помилка");
@@ -86,8 +90,25 @@ const SigningPage = () => {
                                     <FormMessage
                                     />
                                 </FormItem>
+                                
                             )}
                         />
+                        <FormField
+                            control={form.control}
+                            name="email"
+                            render={({ field }) => (
+                                <FormItem>
+                                <FormLabel>Email</FormLabel>
+                                <FormControl>
+                                    <Input placeholder="example@example.com" {...field} />
+                                </FormControl>
+                                <FormDescription>
+                                    Сюди надійде лист з документом на підпис
+                                </FormDescription>
+                                <FormMessage />
+                                </FormItem>
+                            )}
+                            />
                         <div className="flex items-center gap-x-2">
                             <Link href="/">
                                 <Button

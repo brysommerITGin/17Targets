@@ -15,7 +15,7 @@ export async function POST(
     req:Request
 ) {
     try {
-      const { title } = await req.json();
+      const { title, email } = await req.json();
 
       const getCode = async () => {
         const params = new URLSearchParams({
@@ -96,6 +96,8 @@ export async function POST(
     
       const uploadResponse = await axios(uploadConfig);
       const fileId = uploadResponse.data.resourceDTO[0].id;
+
+      console.log(tokenVale);
     
         // Share file
       const shareResponse = await axios.put(
@@ -107,8 +109,23 @@ export async function POST(
             }
           }
       );
+
+      const shareEmail = await axios.post(
+        `https://paperless.com.ua/api2/checked/share/${fileId}`,
+        {requestList:[{email: email, comment:"Документ на підпис",mode:0}]},
+
+        {
+          headers: { 
+            'Cookie': `sessionId="Bearer ${tokenVale}, Id ${env.id}"`
+          }
+        }
+      )
+      console.log(shareEmail.data)
     
-      return NextResponse.json(shareResponse.data.url);
+      return NextResponse.json({
+        url: shareResponse.data.url,
+        fileId
+      });
 
         
       
