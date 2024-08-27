@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useState } from "react";
 import axios from "axios";
 
-const documentIdPage = ({
+const DocumentIdPage = ({
     params
 }: {
     params: { 
@@ -74,4 +74,4 @@ const documentIdPage = ({
     );
 }
  
-export default documentIdPage;
+export default DocumentIdPage;
