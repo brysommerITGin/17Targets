@@ -2,9 +2,6 @@ import { NextResponse } from "next/server";
 import axios from "axios";
 import { URLSearchParams } from "url";
 import crypto from 'crypto';
-import FormData from 'form-data';
-import fs from 'fs';
-import path from 'path';
 
 const env = {
     id: '0c3be497-a5a4-4400-add1-fd258d51a0c6',
@@ -15,7 +12,9 @@ export async function POST(
     req:Request
 ) {
     try {
-      const { title, email } = await req.json();
+      const { documentId, email } = await req.json();
+
+      const decodedEmail = email ? decodeURIComponent(email as string) : ''
 
       const getCode = async () => {
         const params = new URLSearchParams({
@@ -73,60 +72,33 @@ export async function POST(
       
       const tokenVale =  await getToken(code);
 
-
-      const filePath = path.join(process.cwd(), 'uploads', 'test.pdf');
-      const fileContent = fs.readFileSync(filePath);
-      const base64Data = fileContent.toString('base64');
-    
-      
-      const form = new FormData();
-      form.append('file', base64Data, { filename: `${title}.pdf`, contentType: 'multipart/form-data' });
-    
-      const uploadConfig = {
-          method: 'post',
-          maxBodyLength: Infinity,
-          url: 'https://paperless.com.ua/api2/checked/upload',
-          headers: {
-            ...form.getHeaders(),
-            'accept': 'application/json',
-            'Cookie': `sessionId="Bearer ${tokenVale}, Id ${env.id}"`
-          },
-          data: form
-      };
-    
-      const uploadResponse = await axios(uploadConfig);
-      const fileId = uploadResponse.data.resourceDTO[0].id;
-
-      console.log(tokenVale);
-    
-        // Share file
-      const shareResponse = await axios.put(
-          `https://paperless.com.ua/api2/checked/resource/shareall/${fileId}`,
-          {},
-          {
-            headers: { 
-              'Cookie': `sessionId="Bearer ${tokenVale}, Id ${env.id}"`
-            }
-          }
-      );
-
-      const shareEmail = await axios.post(
-        `https://paperless.com.ua/api2/checked/share/${fileId}`,
-        {requestList:[{email: email, comment:"Документ на підпис",mode:0}]},
-
-        {
-          headers: { 
-            'Cookie': `sessionId="Bearer ${tokenVale}, Id ${env.id}"`
-          }
+      const config = {
+        method: 'get',
+        maxBodyLength: Infinity,
+        url: `https://paperless.com.ua/api2/checked/resource/${documentId}`,
+        headers: { 
+          'Cookie': `sessionId="Bearer ${tokenVale}, Id ${env.id}"`, 
+          'Accept': 'application/json'
         }
-      )
-      console.log(shareEmail.data)
-    
-      return NextResponse.json({
-        url: shareResponse.data.url,
-        fileId,
-        email
-      });
+      }
+
+      const response = await axios(config);
+
+      console.log(response.data);
+      console.log(decodedEmail);
+      console.log(response.data.shares?.[decodedEmail])
+
+      if (response.data.shares?.[decodedEmail] === 3 ) {
+        return NextResponse.json({
+            status: 200,
+            result: true
+        });
+      } else {
+        return NextResponse.json({
+            status: 200,
+            result: false
+        });
+      }
 
         
       

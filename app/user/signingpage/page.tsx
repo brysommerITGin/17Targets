@@ -46,8 +46,7 @@ const SigningPage = () => {
         try {
             const response = await axios.post("/api/autorize", values);
             console.log(response.data)
-            /*router.push(`/user/checksign/${response.data.documentId}`)*/
-            router.push(`/user/signingpage/${response.data.fileId}`)
+            router.push(`/user/signingpage/${response.data.fileId}/${response.data.email}`)
 
         } catch  {
             toast.error("Трапилась помилка");
