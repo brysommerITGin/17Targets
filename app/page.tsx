@@ -7,9 +7,9 @@ import Link from "next/link";
 export default function Home() {
   return (
     <div className="p-6">
-      <Link href="/user/signingpage">
+      <Link href="/user/rules">
         <Button>
-          Новий користувач
+          Зареєструватися
         </Button>
       </Link>  
     </div>

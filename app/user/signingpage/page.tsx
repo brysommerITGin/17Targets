@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input";
 import toast from "react-hot-toast";
+import RegistrationRules from "@/components/RegistrationRules";
 
 const formSchema = z.object({
     title: z.string().min(2, {
@@ -54,14 +55,21 @@ const SigningPage = () => {
         
     };
 
-    return ( 
+    return (
+        <>
+        <div className="container mx-auto p-4">
+                <RegistrationRules />
+        </div>
         <div className="max-w-5xl mx-auto flex md:items-center md:justify-center h-full p-6">
+
+            
+
             <div>
                 <h1 className="text-2xl">
-                    Назва організації
+                    Дані для підпису
                 </h1>
                 <p className="text-sm text-slate-600">
-                    Назва організації в реєстрі юр осіб
+                    Заповніть форму щоб підписати
                 </p>
                 <Form {...form}>
                     <form 
@@ -121,13 +129,14 @@ const SigningPage = () => {
                                 type="submit"
                                 disabled={!isValid || isSubmitting}
                             >
-                                Продовжити
+                                Підписати
                             </Button>
                         </div>
                     </form>
                 </Form>
             </div>
         </div>
+        </> 
      );
 }
  
