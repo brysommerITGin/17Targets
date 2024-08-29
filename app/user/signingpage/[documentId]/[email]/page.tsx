@@ -21,10 +21,12 @@ const DocumentIdPage = ({
         text: "Перевірити підпис", // Початковий текст
       })
 
+      const encodedEmail = decodeURIComponent(params.email)
+
       useEffect(() => {
-        toast.success(`Ми надіслали лист з посиланням для підпису на пошту ${params.email}`);
+        toast.success(`Ми надіслали лист з посиланням для підпису на пошту ${encodedEmail}`);
       }, [params.email]);
-      
+
       const handleCheckSignature = async () => {
         try {
           const response = await axios.post("/api/checksignature", { documentId: params.documentId, email: params.email });
@@ -56,7 +58,7 @@ const DocumentIdPage = ({
         <h1 className="text-xl p-6">
           Мої Документи
         </h1>
-        <div className="p-6">
+        <div className="p-2">
 
             <Link href={ 'https://paperless.com.ua/uk/share/CjgZAQN5iBzPt-A_Ub8dqJEa0Gt1Z3l50fLeFZHxe0c' + params.documentId }>
                 <Button
@@ -69,7 +71,7 @@ const DocumentIdPage = ({
 
         </div>
 
-        <div className="p-6">
+        <div className="p-2">
             <Button
                     type="button"
                     variant="default"
@@ -77,6 +79,19 @@ const DocumentIdPage = ({
             >
                     {buttonState.text}
             </Button>
+        </div>
+
+        <div className="p-2">
+
+            <Link href='/user/cabinet'>
+                <Button
+                    type="button"
+                    variant="default"
+                >
+                    Переглянути документ
+                </Button>
+            </Link>
+
         </div>
 
       </div>
