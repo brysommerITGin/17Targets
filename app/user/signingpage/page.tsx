@@ -87,7 +87,7 @@ const SigningPage = () => {
                                     <FormControl>
                                         <Input
                                             disabled={isSubmitting}
-                                            placeholder="назва Вашої організації"
+                                            placeholder="Назва Вашої організації"
                                             {...field}
                                         />                                        
                                     </FormControl>
