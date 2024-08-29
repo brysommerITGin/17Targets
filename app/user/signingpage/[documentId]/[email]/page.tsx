@@ -2,8 +2,9 @@
 
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
+import toast from "react-hot-toast";
 
 const DocumentIdPage = ({
     params
@@ -19,7 +20,11 @@ const DocumentIdPage = ({
       }>({
         text: "Перевірити підпис", // Початковий текст
       })
-    
+
+      useEffect(() => {
+        toast.success(`Ми надіслали лист з посиланням для підпису на пошту ${params.email}`);
+      }, [params.email]);
+      
       const handleCheckSignature = async () => {
         try {
           const response = await axios.post("/api/checksignature", { documentId: params.documentId, email: params.email });
@@ -47,7 +52,12 @@ const DocumentIdPage = ({
 
     return ( 
       <div>
+        
+        <h1 className="text-xl p-6">
+          Мої Документи
+        </h1>
         <div className="p-6">
+
             <Link href={ 'https://paperless.com.ua/uk/share/CjgZAQN5iBzPt-A_Ub8dqJEa0Gt1Z3l50fLeFZHxe0c' + params.documentId }>
                 <Button
                     type="button"

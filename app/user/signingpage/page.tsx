@@ -57,10 +57,10 @@ const SigningPage = () => {
 
     return (
         <>
-        <div className="container mx-auto p-4">
+        <div className="container mx-auto p-2">
                 <RegistrationRules />
         </div>
-        <div className="max-w-5xl mx-auto flex md:items-center md:justify-center h-full p-6">
+        <div className="max-w-5xl mx-auto flex md:items-center md:justify-center h-full">
 
             
 
