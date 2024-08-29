@@ -10,7 +10,7 @@ const RegistrationRules = () => {
   return (
     <Card className="max-w-2xl mx-auto mt-10">
       <CardHeader>
-        <CardTitle>Правила реєстрації на платформі "17 Цілей Сталого Розвитку"</CardTitle>
+        <CardTitle>Правила реєстрації на платформі 17 Цілей Сталого Розвитку</CardTitle>
       </CardHeader>
       <CardContent>
         <ol className="list-decimal list-inside space-y-4 text-lg">
@@ -21,7 +21,7 @@ const RegistrationRules = () => {
             <strong>Умови реєстрації:</strong>
             <ul className="list-disc list-inside ml-5 space-y-2">
               <li>Реєстрація доступна особам, які досягли 18 років.</li>
-              <li>Користувачі зобов'язані надавати правдиву інформацію під час реєстрації.</li>
+              <li>Користувачі зобов&#39язані надавати правдиву інформацію під час реєстрації.</li>
             </ul>
           </li>
           <li>
@@ -34,7 +34,7 @@ const RegistrationRules = () => {
           <li>
             <strong>Використання платформи:</strong>
             <ul className="list-disc list-inside ml-5 space-y-2">
-              <li>Ви зобов'язані використовувати платформу виключно для законних цілей, пов'язаних з цілями сталого розвитку.</li>
+              <li>Ви зобов&#39язані використовувати платформу виключно для законних цілей, пов&#39язаних з цілями сталого розвитку.</li>
               <li>Заборонено поширювати інформацію, яка є образливою або неправдивою.</li>
             </ul>
           </li>
