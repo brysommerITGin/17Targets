@@ -3,7 +3,7 @@ export default function SustainableDevelopmentGoals() {
       <div className="p-6">
         {/* Centering the title */}
         <h2 className="text-5xl font-bold text-center text-black mb-12 mt-12">
-          30 Цілей сталого розвитку
+          17 Цілей сталого розвитку
         </h2>
         {/* Centering the content and adding styling */}
         <div className="max-w-4xl mx-auto bg-gray-100 p-8 rounded-lg shadow-lg border border-gray-200">
