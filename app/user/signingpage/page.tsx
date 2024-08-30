@@ -60,11 +60,8 @@ const SigningPage = () => {
         <div className="container mx-auto p-2">
                 <RegistrationRules />
         </div>
-        <div className="max-w-5xl mx-auto flex md:items-center md:justify-center h-full">
-
-            
-
-            <div>
+        <div className="max-w-5xl mx-auto flex md:items-center md:justify-center h-full ">
+            <div className="border border-gray-300 rounded-lg shadow-sm p-6 bg-white">
                 <h1 className="text-2xl">
                     Дані для підпису
                 </h1>
