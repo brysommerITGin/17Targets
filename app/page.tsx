@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import SustainableDevelopmentGoals from "@/components/SustainableGoalsSection";
+import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
@@ -14,12 +15,13 @@ export default function Home() {
     <SustainableDevelopmentGoals />
     <div className="flex justify-center mt-8">
       <Link href="/user/cabinet">
-        <Button>
-        ЗАРЕЄСТРУВАТИСЯ НА ПЛАТФОРМІ
+        <Button className="py-6 px-6">
+          ЗАРЕЄСТРУВАТИСЯ НА ПЛАТФОРМІ
         </Button>
       </Link>  
     </div>
     </div>
+    <Footer />
   </>
   );
 }
